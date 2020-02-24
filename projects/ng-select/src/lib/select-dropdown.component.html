@@ -23,6 +23,7 @@
                 [ngClass]="{'highlighted': option.highlighted, 'selected': option.selected, 'disabled': option.disabled}"
                 [ngStyle]="getOptionStyle(option)"
                 (click)="onOptionClick(option)"
+                (keydown.tab)="onOptionClick(option)"
                 (mouseover)="onOptionMouseover(option)">
                 <ng-container *ngTemplateOutlet="optionTemplate; context:{option: option.wrappedOption}"></ng-container>
                 <span *ngIf="!optionTemplate">{{option.label}}</span>
