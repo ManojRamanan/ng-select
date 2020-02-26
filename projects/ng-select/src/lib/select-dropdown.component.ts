@@ -90,6 +90,7 @@ export class SelectDropdownComponent
     }
 
     onOptionClick(option: Option) {
+        console.log("test");
         this.optionClicked.emit(option);
     }
 

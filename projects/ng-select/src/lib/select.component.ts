@@ -190,6 +190,7 @@ export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit 
     // TODO fix issues with global click/key handler that closes the dropdown.
     open() {
         this.openDropdown();
+        console.log("open()");
     }
 
     close() {
@@ -314,6 +315,7 @@ export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit 
     }
 
     private clearSelection() {
+        console.log("testsetset");
         let selection: Array<Option> = this.optionList.selection;
         if (selection.length > 0) {
             this.optionList.clearSelection();
@@ -429,14 +431,15 @@ export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit 
         let key = event.which;
 
         if (this.isOpen) {
+            console.log("handleSelectContainerKeydown");
             if (key === this.KEYS.ESC || (key === this.KEYS.UP && event.altKey)) {
                 this.closeDropdown(true);
             }
-            else if (key === this.KEYS.TAB) {
-                this.closeDropdown(event.shiftKey);
-                this._blur();
-            }
-            else if (key === this.KEYS.ENTER) {
+            // else if (key === this.KEYS.TAB) {
+            //     this.closeDropdown(event.shiftKey);
+            //     this._blur();
+            // }
+            else if (key === this.KEYS.ENTER || key === this.KEYS.TAB) {
                 this.selectHighlightedOption();
             }
             else if (key === this.KEYS.UP) {
@@ -455,6 +458,7 @@ export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit 
             }
         }
         else {
+            console.log("closed");
             // DEPRICATED --> SPACE
             if (key === this.KEYS.ENTER || key === this.KEYS.SPACE ||
                     (key === this.KEYS.DOWN && event.altKey)) {
@@ -465,9 +469,10 @@ export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit 
                  * to be triggered for the filter input field, which causes
                  * the dropdown to be closed again.
                  */
-                setTimeout(() => { this.openDropdown(); });
+                setTimeout(() => { this.openDropdown(); }, 100);
             }
             else if (key === this.KEYS.TAB) {
+                console.log("test tab");
                 this._blur();
             }
         }
@@ -509,6 +514,9 @@ export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit 
         if (!this.hasFocus) {
             this.hasFocus = true;
             this.focus.emit(null);
+            if (!this.isOpen) {
+                setTimeout(() => { this.openDropdown(); }, 200);
+            }
         }
     }
 
